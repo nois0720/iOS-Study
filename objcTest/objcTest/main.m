@@ -15,6 +15,8 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSMutableArray *employees = [[NSMutableArray alloc] init];
         
+        NSMutableDictionary *executives = [[NSMutableDictionary alloc] init];
+        
         for (int i = 0; i < 10; i++) {
             Employee *person = [[Employee alloc] init];
             
@@ -23,9 +25,17 @@ int main(int argc, const char * argv[]) {
             [person setEmployeeID:i];
             
             [employees addObject:person];
+            
+            
+            switch (i) {
+                case 0:
+                    [executives setObject:person forKey:@"CEO"];
+                    break;
+                case 1:
+                    [executives setObject:person forKey:@"CTO"];
+                    break;
+            }
         }
-        
-//        [employees sortUsingDescriptors:<#(nonnull NSArray<NSSortDescriptor *> *)#>]
         
         NSMutableArray *allAssets = [[NSMutableArray alloc] init];
         
@@ -57,6 +67,9 @@ int main(int argc, const char * argv[]) {
         [employees removeObjectAtIndex:5];
         
         NSLog(@"allAssets: %@", allAssets);
+        
+        NSLog(@"executives: %@", executives);
+        executives = nil;
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"holder.valueOfAssets > 70"];
         NSArray *toBeReclaimed = [allAssets filteredArrayUsingPredicate:predicate];
